@@ -19,6 +19,11 @@ function render404(req, res) {
   res.status(404).render('not-found');
 }
 
+function getProjects(api, callback) {
+  return api.query(Prismic.Predicates.at('document.type', 'project'),
+                   { pageSize: 40, orderings: '[my.project.date desc]' });
+}
+
 app.listen(PORT, function() {
   const repoEndpoint = PConfig.apiEndpoint.replace('/api', '');
   request.post(repoEndpoint + '/app/settings/onboarding/run', {});
@@ -44,6 +49,23 @@ function api(req, res) {
 /**
 * preconfigured prismic preview
 */
+app.get('/', function(req, res) {
+  api(req, res).then(function(api) {
+    api.getByUID('homepage', 'homepage').then(function(pageContent) {
+      getProjects(api).then(function(projects) {
+        res.render('homepage', {
+          pageContent: pageContent,
+          projects: projects.results
+        });
+      }).catch(function(err) {
+        handleError(err, req, res);
+      });
+    }).catch(function(err) {
+      handleError(err, req, res);
+    });
+  });
+});
+
 app.get('/preview', function(req, res) {
   api(req, res).then(function(api) {
     return Prismic.preview(api, PConfig.linkResolver, req, res);
@@ -51,6 +73,26 @@ app.get('/preview', function(req, res) {
     handleError(err, req, res);
   });
 });
+
+app.get('/work/:uid', function(req, res) {
+  var uid = req.params.uid;
+
+  api(req, res).then(function(api) {
+    api.getByUID('project', uid).then(function(pageContent) {
+      getProjects(api).then(function(projects) {
+        res.render('project', {
+          pageContent: pageContent,
+          projects: projects.results
+        });
+      }).catch(function(err) {
+        handleError(err, req, res);
+      });
+    }).catch(function(err) {
+      handleError(err, req, res);
+    });
+  });
+});
+
 
 app.get('/:uid', function(req, res) {
   var uid = req.params.uid;

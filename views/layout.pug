@@ -1,7 +1,7 @@
 doctype html(lang='en')
 
 head
-  title TODO
+  title Elliott Pogue
   link(rel="stylesheet", href="/stylesheets/reset.css")
   link(rel="stylesheet", href="/stylesheets/style.css")
   script(src="https://use.typekit.net/nqk3zmf.js")
@@ -10,7 +10,15 @@ head
   meta(name="viewport", content="width=device-width, initial-scale=1")
 
 body
-  block body
+  header.site-header
+    .container
+      h1.site-brand
+        | Elliott Pogue
+        span.site-brand__sub Designer &amp; Developer
+      nav.site-navigation
+
+  .site-content
+    block body
 
   // Required for Previews and Experiments
   script(src="https://code.jquery.com/jquery-1.12.4.min.js")

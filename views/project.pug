@@ -1,0 +1,16 @@
+extends ./layout.pug
+
+block append body
+  body.project
+    section.intro
+      .container--lg
+        .intro-text-container
+          != pageContent.getStructuredText('project.description').asHtml(ctx.linkResolver)
+    section.projects-list
+      .container--lg
+        - console.log(projects)
+        each project in projects
+          a.project(href=ctx.linkResolver(project))
+            figcaption= project.getText('project.title')
+            figure
+              img(src=project.getImage('project.thumbnail').url)

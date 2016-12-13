@@ -1,21 +1,172 @@
+// normalize everything
+@import 'normalize';
+
+// settings
 @import 'settings';
 
-html {
-  box-sizing: border-box;
+// box-sizing
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
+%container {
+  margin: 0 auto;
+  padding: 0 $grid-gutter-width / 2;
+  width: 100%;
+}
+
+.container,
+.container--lg {
+  @extend %container;
+  max-width: 1040px;
+}
+
+.container--xl {
+  max-width: 1200px;
 }
 
 @import 'typography';
 
-.site-brand {
-
+.site-header {
+  background: $header-bg;
+  height: $header-height;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
 }
 
-.site-navigation {
+.site-brand {
+  font-size: 18px;
+  letter-spacing: .4px;
+  line-height: $header-height;
+  margin: 0;
+  text-transform: uppercase;
 
+  &__sub {
+    color: $text-muted-color;
+    font-family: $serif;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: normal;
+    margin-left: 10px;
+    text-transform: none;
+  }
+}
+
+.hero {
+  background: $hero-default-bg url('/images/heroes/ms-on-iphone.jpg') 50% fixed / cover no-repeat;
+  display: flex;
+  width: 100%;
+
+  %container {
+    position: relative;
+  }
+
+  &__overlay {
+    background-color: $hero-overlay-bg;
+    bottom: -40px;
+    padding: 40px;
+    position: absolute;
+    right: $grid-gutter-width / 2;
+    width: 400px;
+
+    h2 {
+      margin: 0;
+    }
+
+    .btn--text {
+      margin-top: 16px;
+    }
+  }
+}
+
+.homepage {
+  .hero {
+    height: 70vh;
+  }
+}
+
+.btn--text {
+  color: $link-color;
+  display: inline-block;
+  font-family: $sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: .4px;
+  text-decoration: none;
+  transition: color .2s;
+
+  &:before {
+    content: '\2192\2002';
+  }
+
+  &:hover {
+    color: $link-color-active;
+  }
+}
+
+.projects-list .container--lg {
+  margin-top: 20px;
+}
+
+.project {
+  color: $project-link-color;
+  display: flex;
+  font-family: $sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 22px;
+  position: relative;
+  margin-bottom: 20px;
+
+  &:hover {
+    figcaption {
+      background: rgba($text-color, .7);
+    }
+  }
+
+  figcaption {
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: background .2s;
+  }
+
+  figure {
+    margin: 0;
+
+    img { max-width: 100%; }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .projects-list {
+    .container--lg {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+  }
+
+  .project {
+    width: calc(50% - 20px);
+    margin-bottom: 40px;
+
+    &:nth-child(odd) {
+      margin-right: 20px;
+    }
+
+    &:nth-child(even) {
+      margin-left: 20px;
+    }
+  }
 }

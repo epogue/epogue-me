@@ -10,12 +10,7 @@ var gulp = require('gulp'),
 // Styles
 gulp.task('styles', function() {
   return gulp.src('app/stylesheets/*.scss')
-    .pipe(sass.sync({
-      outputStyle: 'compressed',
-      include: [
-        './node_modules/normalize.css'
-      ]
-    }).on('error', sass.logError))
+    .pipe(sass.sync({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer('last 2 versions', 'ie 10'))
     .pipe(minifyCss())
     .pipe(gulp.dest('public/stylesheets'))
