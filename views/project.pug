@@ -1,16 +1,37 @@
 extends ./layout.pug
 
 block append body
-  body.project
-    section.intro
+  body.project-page
+    section
       .container--lg
-        .intro-text-container
-          != pageContent.getStructuredText('project.description').asHtml(ctx.linkResolver)
-    section.projects-list
+        .project-info
+          .project-info__title
+            h1= pageContent.getText('project.title')
+          .project-info__description
+            != pageContent.getStructuredText('project.description').asHtml(ctx.linkResolver)
+            - var links = pageContent.getGroup('project.links')
+            if links
+              p
+                each link in links.toArray()
+                  - var dest = link.getLink('link-destination')
+                  - var external = !link.document
+                  a.btn--text(href=dest.url(ctx.linkResolver) target=(external ? "_blank" : "") rel=(external ? "noopener" : ""))= link.getText('link-text')
+    section.project-gallery
       .container--lg
-        - console.log(projects)
-        each project in projects
-          a.project(href=ctx.linkResolver(project))
-            figcaption= project.getText('project.title')
-            figure
-              img(src=project.getImage('project.thumbnail').url)
+        each slice in pageContent.getSliceZone('project.slices').slices
+          case slice.sliceType
+            when 'single-photo'
+              .project-gallery__row
+                img(src=slice.value.url)
+            //- when 'double-photo'
+            //-   .project-image--single
+            //-     img(src=slice.value.url)
+    section.projects
+      .container--lg
+        .projects-list
+          each project in projects
+            unless project.uid == pageContent.uid
+              a.project(href=ctx.linkResolver(project))
+                figcaption= project.getText('project.title')
+                figure
+                  img(src=project.getImage('project.thumbnail').url)

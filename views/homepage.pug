@@ -5,15 +5,13 @@ block append body
     section.hero
       .container--lg
         .hero__overlay
-          h2
-            | Custom Web Design &amp;
-            | Application Development
-          a.btn--text(href="/about") About Me
-    section.projects-list
+          h2 Custom Web Design &amp; Application Development
+          
+    section.projects
       .container--lg
-        - console.log(projects)
-        each project in projects
-          a.project(href=ctx.linkResolver(project))
-            figcaption= project.getText('project.title')
-            figure
-              img(src=project.getImage('project.thumbnail').url)
+        .projects-list
+          each project in projects
+            a.project(href=ctx.linkResolver(project))
+              figcaption= project.getText('project.title')
+              figure
+                img(src=project.getImage('project.thumbnail').url)

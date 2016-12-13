@@ -11,11 +11,13 @@ head
 
 body
   header.site-header
-    .container
-      h1.site-brand
-        | Elliott Pogue
-        span.site-brand__sub Designer &amp; Developer
+    .container--lg
+      a.site-brand(href="/" alt="Back to Homepage")
+        h1
+          | Elliott Pogue
+          span.site-brand__sub Designer &amp; Developer
       nav.site-navigation
+        a.root-link(href="/") Work
 
   .site-content
     block body
