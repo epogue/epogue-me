@@ -1,0 +1,10 @@
+files:
+  include: 'app/stylesheets/**/*.scss'
+
+rules:
+  force-pseudo-nesting: 0
+  pseudo-element: 0
+  indentation:
+    - 2
+    -
+      size: 2
