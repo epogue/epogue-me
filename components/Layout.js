@@ -37,9 +37,10 @@ const Layout = ({ children, title = "Elliott Pogue" }) =>
       <title>
         {title}
       </title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <link rel="icon" type="image/png" href="/static/favicon.png" />
       <script src="https://use.typekit.net/nqk3zmf.js"></script>
       <script>{`try{Typekit.load({ async: true });}catch(e){}`}</script>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <CardContainer>
       {children}
