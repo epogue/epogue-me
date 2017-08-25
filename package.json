@@ -4,11 +4,10 @@
   "description": "My personal site",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next",
+    "dev": "node server.js -p $PORT",
     "build": "next build",
-    "start": "next start",
-    "heroku-postbuild": "npm run build"
+    "start": "node server.js -p $PORT",
+    "heroku-postbuild": "next build"
   },
   "repository": {
     "type": "git",
@@ -21,6 +20,7 @@
   },
   "homepage": "https://github.com/epogue/epogue-me#readme",
   "dependencies": {
+    "express": "^4.15.4",
     "next": "^3.0.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
